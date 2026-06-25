@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Onyekachukwu Emmanuel Modozie — Full Stack Developer</title>
+<meta name="description" content="Full-stack developer building secure, production-deployed web platforms — e-commerce, logistics tracking, and retail stores — with React, Node.js and PostgreSQL."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ── */
+:root{
+  --ink:#0E1116;--ink2:#161B22;--panel:#12161D;
+  --paper:#EDEFF2;--slate:#9AA3AF;--slate-dim:#6B7280;
+  --signal:#FF5A1F;--signal-dim:rgba(255,90,31,.12);--signal-bd:rgba(255,90,31,.35);
+  --verified:#2BB673;--verified-dim:rgba(43,182,115,.12);--verified-bd:rgba(43,182,115,.35);
+  --concept:#C9A86A;--concept-dim:rgba(201,168,106,.10);--concept-bd:rgba(201,168,106,.30);
+  --line:rgba(237,239,242,.09);--line-soft:rgba(237,239,242,.05);
+  --shadow:0 24px 60px rgba(0,0,0,.45);
+  --theme-speed:.38s;
+}
+[data-theme=light]{
+  --ink:#F0F1EC;--ink2:#E5E6DF;--panel:#EAEBE5;
+  --paper:#14181F;--slate:#52596A;--slate-dim:#7A8090;
+  --signal:#D9480F;--signal-dim:rgba(217,72,15,.09);--signal-bd:rgba(217,72,15,.32);
+  --verified:#15824F;--verified-dim:rgba(21,130,79,.09);--verified-bd:rgba(21,130,79,.32);
+  --concept:#8A6A2E;--concept-dim:rgba(138,106,46,.08);--concept-bd:rgba(138,106,46,.28);
+  --line:rgba(20,24,31,.10);--line-soft:rgba(20,24,31,.06);
+  --shadow:0 24px 50px rgba(20,24,31,.10);
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:'Inter',sans-serif;font-size:16px;line-height:1.5;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background var(--theme-speed) ease,color var(--theme-speed) ease;
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+::-webkit-scrollbar{width:7px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+a{text-decoration:none;color:inherit}
+.disp{font-family:'Space Grotesk',sans-serif!important}
+.mono{font-family:'IBM Plex Mono',monospace!important}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:3px}
+button{font:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+
+/* ── BACKGROUND ── */
+#bg-grid{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);
+  background-size:28px 28px;background-position:-10px -10px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 60% at 50% 0%,#000 0%,transparent 75%);
+  mask-image:radial-gradient(ellipse 75% 60% at 50% 0%,#000 0%,transparent 75%);
+  transition:opacity var(--theme-speed) ease;
+}
+#bg-wash{position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--ink);transition:background var(--theme-speed) ease}
+
+/* ── ANIMATIONS ── */
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(43,182,115,.45)}50%{box-shadow:0 0 0 6px rgba(43,182,115,0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cordTug{0%{transform:translateY(0)}30%{transform:translateY(20px)}55%{transform:translateY(-4px)}75%{transform:translateY(8px)}100%{transform:translateY(0)}}
+
+/* ── REVEAL ON SCROLL ── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.4s}.rv.d6{transition-delay:.48s}
+
+/* ── PILLS & TAGS ── */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:5px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;border:1px solid var(--line)}
+.pill.verified{background:var(--verified-dim);border-color:var(--verified-bd);color:var(--verified)}
+.pill.concept{background:var(--concept-dim);border-color:var(--concept-bd);color:var(--concept)}
+.pill.neutral{background:var(--ink2);color:var(--slate)}
+.tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:4px;font-size:11.5px;font-weight:500;background:var(--ink2);color:var(--slate);border:1px solid var(--line);transition:background var(--theme-speed),border-color var(--theme-speed)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:7px;font-weight:600;font-size:13.5px;padding:12px 20px;transition:transform .2s,box-shadow .2s,background .25s,border-color .25s,color .25s;border:1px solid transparent;min-height:44px}
+.btn-fill{background:var(--signal);color:#0E1116}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(255,90,31,.22)}
+.btn-line{background:transparent;border-color:var(--line);color:var(--paper)}
+.btn-line:hover{border-color:var(--signal-bd);background:var(--signal-dim);transform:translateY(-2px)}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+#nav.scrolled{background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+.nav-l{font-size:13px;font-weight:500;color:var(--slate);transition:color .2s}
+.nav-l:hover,.nav-l.active{color:var(--paper)}
+.brand-mark{width:30px;height:30px;border-radius:6px;background:var(--signal);color:#0E1116;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;flex-shrink:0}
+/* Mobile menu */
+#mob-menu-btn{display:none;width:40px;height:40px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--paper);cursor:pointer}
+@media(max-width:760px){#mob-menu-btn{display:flex}}
+#mob-nav{display:none;position:fixed;inset:0;z-index:99;background:color-mix(in srgb,var(--ink) 96%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob-nav.open{display:flex;animation:fadeIn .2s ease}
+#mob-nav a{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:var(--paper);transition:color .15s}
+#mob-nav a:hover{color:var(--signal)}
+#mob-close{position:absolute;top:22px;right:22px;background:transparent;border:1px solid var(--line);border-radius:8px;padding:8px 14px;color:var(--slate);font-size:13px}
+
+/* ── MANIFEST CARD ── */
+.manifest{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden;width:100%;max-width:320px;transition:background var(--theme-speed),border-color var(--theme-speed)}
+.manifest-top{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;border-bottom:1px dashed var(--line)}
+.manifest-id{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--slate-dim)}
+.manifest-photo{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--ink2)}
+.manifest-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.manifest-body{padding:14px}
+.mrow{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line-soft);gap:10px}
+.mrow:last-child{border-bottom:none}
+.mrow .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-dim);flex-shrink:0;padding-top:2px}
+.mrow .v{font-size:12.5px;font-weight:600;color:var(--paper);text-align:right}
+.manifest-strip{height:6px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px)}
+
+/* mobile manifest: compact row layout */
+@media(max-width:760px){
+  .manifest-mobile-wrap{display:flex!important;flex-direction:column;align-items:center;margin-top:32px}
+  .manifest{max-width:100%;display:grid;grid-template-columns:120px 1fr;grid-template-rows:auto 1fr;border-radius:12px}
+  .manifest-top{grid-column:1/-1}
+  .manifest-photo{aspect-ratio:1/1;width:120px;height:120px;border-radius:0}
+  .manifest-strip{display:none}
+  .manifest-body{padding:10px 12px;display:flex;flex-direction:column;justify-content:center}
+  .mrow{padding:4px 0}
+  .mrow .k{font-size:9px}
+  .mrow .v{font-size:11.5px}
+}
+
+/* ── SECTIONS ── */
+.sec{padding:88px 24px;position:relative}
+.sec-tear{border-top:1px dashed var(--line)}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--signal)}
+h2.h-sec{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(26px,4vw,42px);letter-spacing:-.01em;color:var(--paper);line-height:1.15}
+.sub{color:var(--slate);font-size:15px;line-height:1.7;max-width:560px}
+@media(max-width:760px){.sec{padding:60px 20px}}
+
+/* ── CARDS ── */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .3s,transform .3s,box-shadow .3s,background var(--theme-speed)}
+.card:hover{border-color:var(--signal-bd);transform:translateY(-3px);box-shadow:var(--shadow)}
+.trait{display:flex;gap:12px;align-items:flex-start;padding:15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);transition:background var(--theme-speed),border-color var(--theme-speed)}
+.trait-ic{width:34px;height:34px;border-radius:8px;background:var(--signal-dim);border:1px solid var(--signal-bd);display:flex;align-items:center;justify-content:center;color:var(--signal);flex-shrink:0;transition:background var(--theme-speed)}
+.trait-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── AUDIT (Security) ── */
+.audit{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.audit-item{background:var(--panel);padding:20px;display:flex;gap:13px;transition:background var(--theme-speed)}
+.audit-ic{width:30px;height:30px;border-radius:50%;background:var(--verified-dim);border:1px solid var(--verified-bd);display:flex;align-items:center;justify-content:center;color:var(--verified);flex-shrink:0;transition:background var(--theme-speed)}
+.audit-ic svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.audit-t{font-weight:600;font-size:14px;color:var(--paper);margin-bottom:4px}
+.audit-d{font-size:13px;color:var(--slate);line-height:1.6}
+@media(max-width:680px){.audit{grid-template-columns:1fr}}
+
+/* ── PROJECT CARDS ── */
+/* auto-fit: no CSS edits needed when adding more projects */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.concept-card{border:1px dashed var(--line);border-radius:12px;background:transparent;padding:18px;opacity:.92;transition:border-color var(--theme-speed)}
+
+/* Screenshot carousel */
+.proj-media{position:relative;border-radius:10px 10px 0 0;overflow:hidden;aspect-ratio:16/9;background:var(--ink2)}
+.proj-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+.proj-media img.active{opacity:1;z-index:1}
+.proj-media img.inactive{opacity:0;z-index:0}
+.proj-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;padding:12px;gap:7px}
+.status-chip{position:absolute;top:8px;right:8px;z-index:5;display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:100px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.status-chip.live{background:rgba(43,182,115,.16);color:#3FD98C;border:1px solid rgba(63,217,140,.4)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#3FD98C;animation:pulseDot 2s ease-out infinite}
+/* carousel controls */
+.carousel-ctrl{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:6px;align-items:center}
+.carousel-btn{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:background .2s}
+.carousel-btn:hover{background:rgba(0,0,0,.8)}
+.carousel-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);transition:background .2s;cursor:pointer}
+.carousel-dot.on{background:#fff}
+.carousel-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.6);padding:0 2px}
+/* fallback mockup bars */
+.mockup-bar-row{display:flex;gap:7px}
+.mockup-h{height:7px;border-radius:3px}
+.mockup-block{width:100%;height:30px;border-radius:5px;background:var(--ink2);border:1px solid var(--line)}
+.mockup-2col{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1}
+.mockup-cell{border-radius:5px;background:var(--ink2);border:1px solid var(--line);padding:7px;display:flex;align-items:flex-end;min-height:30px}
+.mockup-fill{height:5px;border-radius:2px}
+
+/* ── SKILLS ── */
+.skill-tabs{display:inline-flex;gap:3px;background:var(--panel);padding:3px;border-radius:9px;border:1px solid var(--line);transition:background var(--theme-speed)}
+.skill-tab{padding:7px 14px;border-radius:7px;border:none;background:transparent;color:var(--slate);font-size:12.5px;font-weight:500;font-family:'Inter',sans-serif;transition:background .25s,color .25s}
+.skill-tab.active{background:var(--signal-dim);color:var(--signal)}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}
+.skill-chip{padding:16px 10px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .2s,border-color .2s,background var(--theme-speed)}
+.skill-chip:hover{transform:translateY(-3px);border-color:var(--signal-bd)}
+.skill-img{width:26px;height:26px;object-fit:contain;
+  transition:opacity var(--theme-speed) ease;
+}
+
+/* ── JOURNEY ── */
+.route{position:relative;padding-left:30px}
+.route::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(to bottom,var(--line) 0 6px,transparent 6px 12px)}
+.route-fill{position:absolute;left:5px;top:6px;width:2px;background:var(--signal);transition:height .15s linear;height:0}
+.checkpoint{position:relative;padding-bottom:28px}
+.checkpoint:last-child{padding-bottom:0}
+.cp-dot{position:absolute;left:-30px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--line);transition:border-color .3s,background .3s}
+.checkpoint.passed .cp-dot{border-color:var(--signal);background:var(--signal)}
+.cp-dot.now{border-color:var(--verified)!important;background:var(--verified)!important;box-shadow:0 0 0 4px var(--verified-dim)}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.testi-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:14px;transition:background var(--theme-speed),border-color var(--theme-speed)}
+.testi-quote{font-size:14.5px;color:var(--slate);line-height:1.75;font-style:italic;position:relative;padding-left:16px}
+.testi-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:var(--signal);font-style:normal;line-height:1;font-family:'Space Grotesk',sans-serif}
+.testi-author{display:flex;align-items:center;gap:11px}
+.testi-av{width:36px;height:36px;border-radius:50%;background:var(--signal-dim);border:1px solid var(--signal-bd);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--signal);flex-shrink:0;font-family:'Space Grotesk',sans-serif}
+.testi-name{font-size:13.5px;font-weight:600;color:var(--paper)}
+.testi-role{font-size:11.5px;color:var(--slate-dim)}
+
+/* ── FORM ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--slate-dim);margin-bottom:6px}
+.inp{width:100%;background:var(--ink2);border:1px solid var(--line);color:var(--paper);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;transition:border-color .2s,background var(--theme-speed),color var(--theme-speed)}
+.inp:focus{outline:none;border-color:var(--signal-bd);background:var(--panel)}
+.inp::placeholder{color:var(--slate-dim)}
+textarea.inp{resize:vertical;min-height:110px}
+.field-err{font-size:12px;color:var(--signal);margin-top:5px;display:none}
+.field.invalid .inp{border-color:var(--signal)}
+.field.invalid .field-err{display:block}
+
+/* ── SOCIAL ICONS ── */
+.s-ic{width:42px;height:42px;border-radius:9px;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--slate);transition:all .25s,background var(--theme-speed)}
+.s-ic:hover{border-color:var(--signal-bd);color:var(--signal);background:var(--signal-dim);transform:translateY(-2px)}
+
+/* ── THEME CORD ── */
+#cord-wrap{position:fixed;top:0;right:24px;z-index:200;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+#cord-inner{display:flex;flex-direction:column;align-items:center;transform-origin:top center}
+.cord-line{width:2px;height:60px;background:var(--line);margin:0 auto;transition:background var(--theme-speed)}
+.cord-pull{width:16px;height:16px;border-radius:3px;background:var(--signal);margin:0 auto;box-shadow:0 2px 8px rgba(0,0,0,.3);transition:background var(--theme-speed)}
+#cord-wrap.pulling #cord-inner{animation:cordTug .6s cubic-bezier(.4,0,.2,1)}
+.cord-label{position:absolute;top:74px;right:0;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--slate-dim);white-space:nowrap;opacity:0;transition:opacity .2s}
+#cord-wrap:hover .cord-label{opacity:1}
+@media(max-width:768px){#cord-wrap{right:10px}.cord-label{display:none}}
+
+/* ── FOOTER ── */
+.foot-l{font-size:12.5px;color:var(--slate-dim);transition:color .2s}
+.foot-l:hover{color:var(--signal)}
+
+/* ── LAYOUT HELPERS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.g2-l{display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:start}
+.g2-r{display:grid;grid-template-columns:1fr 1.4fr;gap:30px;align-items:start}
+.hide-m{display:block}
+.show-m{display:none}
+@media(max-width:760px){
+  .g2,.g2-l,.g2-r{grid-template-columns:1fr!important;gap:28px!important}
+  .hide-m{display:none!important}
+  .show-m{display:block!important}
+  .nav-links-d{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="bg-wash"></div>
+<div id="bg-grid"></div>
+
+<!-- THEME CORD TOGGLE -->
+<div id="cord-wrap" onclick="toggleTheme()" role="button" tabindex="0" aria-label="Toggle light and dark mode" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()">
+  <div id="cord-inner">
+    <div class="cord-line"></div>
+    <div class="cord-pull"></div>
+  </div>
+  <span class="cord-label">LIGHT / DARK</span>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 20px">
+    <a href="#top" style="display:flex;align-items:center;gap:10px">
+      <div class="brand-mark">OM</div>
+      <span class="disp" style="font-size:16px;font-weight:600;color:var(--paper)">Manuel</span>
+    </a>
+    <div class="nav-links-d" style="display:flex;gap:22px;align-items:center">
+      <a href="#about" class="nav-l">About</a>
+      <a href="#security" class="nav-l">Security</a>
+      <a href="#work" class="nav-l">Work</a>
+      <a href="#skills" class="nav-l">Skills</a>
+      <a href="#journey" class="nav-l">Journey</a>
+      <a href="#testimonials" class="nav-l">Reviews</a>
+      <a href="#contact" class="nav-l">Contact</a>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="resume/Onyekachukwu-Emmanuel-Modozie-Resume.pdf" download class="btn btn-line hide-m" style="padding:8px 14px;min-height:36px;font-size:12px">Résumé</a>
+      <a href="mailto:onyekaemma500@gmail.com"><button class="btn btn-fill" style="padding:8px 16px;min-height:36px;font-size:12px">Hire Me</button></a>
+      <button id="mob-menu-btn" onclick="openMobNav()" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE FULL-SCREEN NAV -->
+<div id="mob-nav" role="dialog" aria-modal="true" aria-label="Navigation">
+  <button id="mob-close" onclick="closeMobNav()">✕ Close</button>
+  <a href="#about" onclick="closeMobNav()">About</a>
+  <a href="#security" onclick="closeMobNav()">Security</a>
+  <a href="#work" onclick="closeMobNav()">Work</a>
+  <a href="#skills" onclick="closeMobNav()">Skills</a>
+  <a href="#journey" onclick="closeMobNav()">Journey</a>
+  <a href="#testimonials" onclick="closeMobNav()">Reviews</a>
+  <a href="#contact" onclick="closeMobNav()">Contact</a>
+  <a href="resume/Onyekachukwu-Emmanuel-Modozie-Resume.pdf" download onclick="closeMobNav()" style="font-size:16px;color:var(--signal)">↓ Download Résumé</a>
+</div>
+
+<main id="top">
+
+<!-- ══════ HERO ══════ -->
+<section id="hero" style="min-height:100vh;display:flex;align-items:center;padding:110px 24px 60px">
+  <div class="wrap" style="width:100%">
+    <!-- Two-column on desktop, stacked on mobile -->
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center" id="hero-grid">
+      <!-- LEFT -->
+      <div>
+        <div class="rv pill verified" style="margin-bottom:26px">
+          <span class="live-dot" style="background:var(--verified)"></span>
+          Available — Remote &amp; Hybrid Roles
+        </div>
+        <h1 class="rv d1 disp" style="font-size:clamp(36px,6vw,68px);font-weight:700;line-height:1.02;letter-spacing:-.02em;color:var(--paper);margin-bottom:6px">Onyekachukwu</h1>
+        <h1 class="rv d2 disp" style="font-size:clamp(36px,6vw,68px);font-weight:500;line-height:1.02;letter-spacing:-.02em;color:var(--slate);margin-bottom:22px">Emmanuel Modozie</h1>
+        <p class="rv d3" style="font-size:16px;color:var(--slate);line-height:1.75;max-width:520px;margin-bottom:30px">
+          Full-stack developer building <strong style="color:var(--paper);font-weight:600">secure, production-deployed</strong> web platforms — payment systems, admin dashboards, logistics tools, and retail stores — from database to deploy.
+        </p>
+        <div class="rv d4" style="display:flex;gap:24px;margin-bottom:34px;flex-wrap:wrap">
+          <div>
+            <div class="disp" style="font-size:26px;font-weight:700;color:var(--signal)">3+</div>
+            <div class="mono" style="font-size:10px;color:var(--slate-dim);margin-top:3px;letter-spacing:.05em">Years Shipping Code</div>
+          </div>
+          <div>
+            <div class="disp" id="stat-live-apps" style="font-size:26px;font-weight:700;color:var(--signal)">21</div>
+            <div class="mono" style="font-size:10px;color:var(--slate-dim);margin-top:3px;letter-spacing:.05em">Projects Delivered</div>
+          </div>
+          <div style="display:flex;flex-direction:column">
+            <div class="disp" style="font-size:26px;font-weight:700;color:var(--signal);display:flex;align-items:center;gap:6px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--signal)" style="flex-shrink:0;margin-top:2px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+              Nigeria
+            </div>
+            <div class="mono" style="font-size:10px;color:var(--slate-dim);margin-top:3px;letter-spacing:.05em">Remote-Ready</div>
+          </div>
+        </div>
+        <div class="rv d5" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px">
+          <a href="#work"><button class="btn btn-fill">View Real Work →</button></a>
+          <a href="resume/Onyekachukwu-Emmanuel-Modozie-Resume.pdf" download><button class="btn btn-line">Download Résumé</button></a>
+        </div>
+        <div class="rv d6" style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="https://github.com/Manuel500W" target="_blank" rel="noopener" aria-label="GitHub"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div></a>
+          <a href="https://www.linkedin.com/in/onyekachukwu-emmanuel-787558302" target="_blank" rel="noopener" aria-label="LinkedIn"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></div></a>
+          <a href="https://x.com/Manuel_0_" target="_blank" rel="noopener" aria-label="X / Twitter"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div></a>
+          <a href="mailto:onyekaemma500@gmail.com" aria-label="Email"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div></a>
+        </div>
+      </div>
+      <!-- RIGHT: MANIFEST CARD (desktop) -->
+      <div class="rv d3 hide-m" style="display:flex;justify-content:center">
+        <div class="manifest">
+          <div class="manifest-top">
+            <span class="manifest-id">FILE · MNL-2023-FSD</span>
+            <span class="pill verified" style="padding:3px 9px;font-size:9.5px"><span class="live-dot" style="width:5px;height:5px"></span> Verified</span>
+          </div>
+          <div class="manifest-photo">
+            <img src="image/profile.webp" alt="Onyekachukwu Emmanuel Modozie" loading="eager" width="640" height="640"/>
+          </div>
+          <div class="manifest-strip"></div>
+          <div class="manifest-body">
+            <div class="mrow"><span class="k">Name</span><span class="v">Onyekachukwu E. Modozie</span></div>
+            <div class="mrow"><span class="k">Role</span><span class="v">Full Stack Developer</span></div>
+            <div class="mrow"><span class="k">Base</span><span class="v">Nigeria · Remote</span></div>
+            <div class="mrow"><span class="k">Experience</span><span class="v">3+ Years</span></div>
+            <div class="mrow"><span class="k">Core Stack</span><span class="v">React · Node.js · Postgres</span></div>
+            <div class="mrow"><span class="k">Status</span><span class="v" style="color:var(--verified)">Open to Roles</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANIFEST CARD mobile: compact strip below hero text -->
+    <div class="show-m" style="margin-top:32px">
+      <div class="manifest" style="max-width:100%;display:grid;grid-template-columns:110px 1fr;border-radius:12px;overflow:hidden">
+        <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px dashed var(--line)">
+          <span class="manifest-id">FILE · MNL-2023-FSD</span>
+          <span class="pill verified" style="padding:2px 8px;font-size:9px"><span class="live-dot" style="width:4px;height:4px"></span> Verified</span>
+        </div>
+        <div style="overflow:hidden;background:var(--ink2)">
+          <img src="image/profile.webp" alt="Onyekachukwu Emmanuel Modozie" loading="eager" style="width:110px;height:110px;object-fit:cover;object-position:top center"/>
+        </div>
+        <div style="padding:10px 12px;display:flex;flex-direction:column;justify-content:center;gap:4px">
+          <div class="mrow" style="padding:3px 0"><span class="k">Role</span><span class="v" style="font-size:11.5px">Full Stack Developer</span></div>
+          <div class="mrow" style="padding:3px 0"><span class="k">Stack</span><span class="v" style="font-size:11.5px">React · Node.js</span></div>
+          <div class="mrow" style="padding:3px 0;border:none"><span class="k">Status</span><span class="v" style="font-size:11.5px;color:var(--verified)">Open to Roles</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ABOUT ══════ -->
+<section id="about" class="sec sec-tear">
+  <div class="wrap">
+    <div class="g2">
+      <div>
+        <div class="rv eyebrow">About</div>
+        <h2 class="rv d1 h-sec" style="margin-bottom:18px">Independent developer.<br>End-to-end ownership.</h2>
+        <p class="rv d2" style="color:var(--slate);font-size:15px;line-height:1.8;margin-bottom:14px">I'm Manuel — a freelance full-stack developer who has spent the last three years taking client briefs from a blank repo to a live URL, alone. That means writing the React frontend, building the Express API behind it, modelling the database, and configuring the deployment — not just the parts that are easy to demo.</p>
+        <p class="rv d3" style="color:var(--slate);font-size:15px;line-height:1.8;margin-bottom:28px">I care most about the parts of an app that don't show up in a screenshot: authentication that holds up, payment webhooks that can't be spoofed, and APIs that fail safely. I'm currently finishing a B.Sc. in Information Technology at the National Open University of Nigeria while building production work for clients.</p>
+        <div class="rv d4" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="trait"><div class="trait-ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:2px">Security-Conscious</div><div style="font-size:11.5px;color:var(--slate-dim);line-height:1.5">Auth, hashing, and webhook verification as standard, not an afterthought.</div></div></div>
+          <div class="trait"><div class="trait-ic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:2px">Ships Solo, End-to-End</div><div style="font-size:11.5px;color:var(--slate-dim);line-height:1.5">Plans, builds, and deploys without a hand-off.</div></div></div>
+          <div class="trait"><div class="trait-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:2px">Remote-Async Ready</div><div style="font-size:11.5px;color:var(--slate-dim);line-height:1.5">Three years of freelance client work, zero in-office overlap required.</div></div></div>
+          <div class="trait"><div class="trait-ic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:2px">Fast Stack Ramp-Up</div><div style="font-size:11.5px;color:var(--slate-dim);line-height:1.5">Picks up new tools fast enough to ship them the same project cycle.</div></div></div>
+        </div>
+      </div>
+      <div class="rv d2 hide-m" style="display:flex;flex-direction:column;gap:13px">
+        <div class="card" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:15px">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--line)"></div>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--line)"></div>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--line)"></div>
+            <span class="mono" style="font-size:10px;color:var(--slate-dim);margin-left:6px">candidate.json</span>
+          </div>
+          <div class="mono" style="font-size:12.5px;line-height:1.95;color:var(--slate)">
+            <div><span style="color:var(--signal)">const</span> <span style="color:#7FB8E0">developer</span> = {</div>
+            <div>&nbsp;&nbsp;name: <span style="color:var(--verified)">"Manuel"</span>,</div>
+            <div>&nbsp;&nbsp;role: <span style="color:var(--verified)">"Full Stack Dev"</span>,</div>
+            <div>&nbsp;&nbsp;experience: <span style="color:var(--signal)">"3+ years"</span>,</div>
+            <div>&nbsp;&nbsp;deployedApps: <span id="code-app-count" style="color:var(--signal)">"21"</span>,</div>
+            <div>&nbsp;&nbsp;remote: <span style="color:var(--signal)">true</span>,</div>
+            <div>&nbsp;&nbsp;status: <span style="color:var(--verified)">"open_to_roles"</span></div>
+            <div>}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card" style="padding:14px"><div style="font-size:12px;font-weight:600;color:var(--signal);margin-bottom:3px">Next.js + TypeScript</div><div style="font-size:10.5px;color:var(--slate-dim)">Preferred Stack</div></div>
+          <div class="card" style="padding:14px"><div style="font-size:12px;font-weight:600;color:var(--signal);margin-bottom:3px">MongoDB + PostgreSQL</div><div style="font-size:10.5px;color:var(--slate-dim)">Databases</div></div>
+          <div class="card" style="padding:14px"><div style="font-size:12px;font-weight:600;color:var(--signal);margin-bottom:3px">Vercel + Render</div><div style="font-size:10.5px;color:var(--slate-dim)">Deployment</div></div>
+          <div class="card" style="padding:14px"><div style="font-size:12px;font-weight:600;color:var(--signal);margin-bottom:3px">JWT + bcrypt</div><div style="font-size:10.5px;color:var(--slate-dim)">Auth Layer</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECURITY ══════ -->
+<section id="security" class="sec sec-tear" style="background:var(--ink2)">
+  <div class="wrap">
+    <div class="rv eyebrow">Why It Matters</div>
+    <h2 class="rv d1 h-sec" style="margin-bottom:10px">Built to be trusted with real data.</h2>
+    <p class="rv d2 sub" style="margin-bottom:34px">Every production app below moves money, moves packages, or moves product — that means auth, payments, and access control had to hold up, not just demo well. This is what's actually implemented.</p>
+    <div class="rv d3 audit">
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">Dual-token JWT auth</div><div class="audit-d">Short-lived access tokens plus a refresh token in an httpOnly cookie — unreachable by injected scripts, so XSS can't steal a session.</div></div></div>
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">Webhook signature verification</div><div class="audit-d">Paystack webhooks are verified against a signature before any order is marked paid, blocking forged payment notifications.</div></div></div>
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">bcrypt password hashing</div><div class="audit-d">Passwords are never stored in plain text — hashed with bcrypt so accounts stay protected even if a database is ever exposed.</div></div></div>
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">Role-based access control</div><div class="audit-d">Admin and customer permissions are enforced server-side, not just hidden behind a UI toggle the client could bypass.</div></div></div>
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">Input validation &amp; CORS</div><div class="audit-d">Every request is validated before it touches the database, and CORS rules restrict which origins are allowed to call the API.</div></div></div>
+      <div class="audit-item"><div class="audit-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="audit-t">Solo end-to-end deployment</div><div class="audit-d">Frontend on Vercel, backend on Render — both configured and shipped independently, owning the full path from code to production URL.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ WORK ══════ -->
+<section id="work" class="sec sec-tear">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:14px">
+      <div>
+        <div class="rv eyebrow">Selected Work</div>
+        <h2 class="rv d1 h-sec">Live in production.</h2>
+      </div>
+      <a href="https://github.com/Manuel500W" target="_blank" rel="noopener" class="rv d2" style="font-size:13px;color:var(--signal);display:flex;align-items:center;gap:5px">GitHub Profile <span>→</span></a>
+    </div>
+
+    <div class="proj-grid" id="proj-grid"></div>
+
+    <!-- CONCEPTS -->
+    <div style="margin-top:60px">
+      <div class="rv eyebrow" style="margin-bottom:6px">Also Built</div>
+      <h3 class="rv d1 disp" style="font-size:22px;font-weight:600;color:var(--paper);margin-bottom:6px">Innovation Lab</h3>
+      <p class="rv d2" style="font-size:13.5px;color:var(--slate-dim);margin-bottom:22px;max-width:580px">A curated collection of experimental builds, UI explorations, and product concepts. These projects showcase emerging ideas, technical experiments, and future-facing solutions that highlight how I think, design, and build beyond client requirements.</p>
+      <div class="concept-grid" id="concept-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SKILLS ══════ -->
+<section id="skills" class="sec sec-tear" style="background:var(--ink2)">
+  <div class="wrap">
+    <div class="rv eyebrow">Stack</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:14px">
+      <h2 class="rv d1 h-sec">Tools I ship with.</h2>
+      <div class="rv d2 skill-tabs" id="skill-tabs"></div>
+    </div>
+    <div id="skill-grid" class="skill-grid"></div>
+  </div>
+</section>
+
+<!-- ══════ JOURNEY ══════ -->
+<section id="journey" class="sec sec-tear">
+  <div class="wrap">
+    <div class="g2-l">
+      <div>
+        <div class="rv eyebrow">Track Record</div>
+        <h2 class="rv d1 h-sec" style="margin-bottom:12px">How I got here.</h2>
+        <p class="rv d2" style="color:var(--slate);font-size:14.5px;line-height:1.75">Four years of deliberate, client-facing practice — not a bootcamp timeline, a freelance one.</p>
+      </div>
+      <div id="journey-root" class="route">
+        <div class="route-fill" id="route-fill"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TESTIMONIALS ══════ -->
+<section id="testimonials" class="sec sec-tear" style="background:var(--ink2)">
+  <div class="wrap">
+    <div class="rv eyebrow">Client Feedback</div>
+    <h2 class="rv d1 h-sec" style="margin-bottom:10px">What clients say.</h2>
+    <p class="rv d2 sub" style="margin-bottom:34px">Freelance means every project lives or dies on trust — these are from people whose products I've shipped.</p>
+    <div class="testi-grid" id="testi-grid"></div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section id="contact" class="sec sec-tear">
+  <div class="wrap">
+    <div class="rv eyebrow">Get In Touch</div>
+    <h2 class="rv d1 h-sec" style="font-size:clamp(28px,4.5vw,52px);margin-bottom:14px">Let's ship<br>something real.</h2>
+    <p class="rv d2 sub" style="margin-bottom:44px">Open to full-time, hybrid, and remote roles, plus select freelance work. If there's a real problem to solve, I'd like to hear about it.</p>
+    <div class="g2-r">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <a href="mailto:onyekaemma500@gmail.com" class="card rv" style="padding:15px 17px;display:block">
+          <div class="mono" style="font-size:10px;color:var(--slate-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Email</div>
+          <div style="font-size:13.5px;color:var(--signal);font-weight:600">onyekaemma500@gmail.com</div>
+        </a>
+        <a href="tel:+2348025056007" class="card rv d1" style="padding:15px 17px;display:block">
+          <div class="mono" style="font-size:10px;color:var(--slate-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Phone</div>
+          <div style="font-size:13.5px;color:var(--paper);font-weight:600">+234 802 505 6007</div>
+        </a>
+        <a href="resume/Onyekachukwu-Emmanuel-Modozie-Resume.pdf" download class="card rv d2" style="padding:15px 17px;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div class="mono" style="font-size:10px;color:var(--slate-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Resume</div>
+            <div style="font-size:13.5px;color:var(--paper);font-weight:600">Download PDF</div>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--signal)" stroke-width="2.3"><path d="M12 3v12"/><polyline points="6 11 12 17 18 11"/><path d="M5 21h14"/></svg>
+        </a>
+        <div class="rv d3" style="margin-top:4px">
+          <div class="mono" style="font-size:10px;color:var(--slate-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Find Me On</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="https://github.com/Manuel500W" target="_blank" rel="noopener" aria-label="GitHub"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div></a>
+            <a href="https://www.linkedin.com/in/onyekachukwu-emmanuel-787558302" target="_blank" rel="noopener" aria-label="LinkedIn"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></div></a>
+            <a href="https://x.com/Manuel_0_" target="_blank" rel="noopener" aria-label="X / Twitter"><div class="s-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div></a>
+          </div>
+        </div>
+      </div>
+      <form class="rv d2 card" style="padding:26px" id="contact-form" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="field" id="f-name-field">
+            <label for="f-name">Your name</label>
+            <input class="inp" id="f-name" name="name" placeholder="Jane Recruiter" autocomplete="name"/>
+            <div class="field-err">Please enter your name.</div>
+          </div>
+          <div class="field" id="f-email-field">
+            <label for="f-email">Email address</label>
+            <input class="inp" id="f-email" name="email" type="email" placeholder="jane@company.com" autocomplete="email"/>
+            <div class="field-err">Please enter a valid email.</div>
+          </div>
+        </div>
+        <div class="field" id="f-msg-field">
+          <label for="f-msg">Message</label>
+          <textarea class="inp" id="f-msg" name="message" placeholder="Tell me about the role or project…" rows="5"></textarea>
+          <div class="field-err">Please add a short message.</div>
+        </div>
+        <button type="submit" class="btn btn-fill" id="send-btn" style="width:100%;justify-content:center">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="sec sec-tear" style="padding:28px 24px">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+    <div>
+      <div class="disp" style="font-size:16px;font-weight:600;color:var(--paper);margin-bottom:2px">Manuel</div>
+      <div style="font-size:11.5px;color:var(--slate-dim)">Full Stack Developer · Nigeria · Remote-Ready</div>
+    </div>
+    <div style="font-size:11px;color:var(--slate-dim);opacity:.55">Built &amp; shipped solo · 2026</div>
+    <div style="display:flex;gap:12px">
+      <a href="https://github.com/Manuel500W" target="_blank" rel="noopener" class="foot-l">GitHub</a>
+      <a href="https://www.linkedin.com/in/onyekachukwu-emmanuel-787558302" target="_blank" rel="noopener" class="foot-l">LinkedIn</a>
+      <a href="https://x.com/Manuel_0_" target="_blank" rel="noopener" class="foot-l">X</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// ██████╗ ██████╗  ██████╗      ██╗███████╗ ██████╗████████╗███████╗
+// ██╔══██╗██╔══██╗██╔═══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝
+// ██████╔╝██████╔╝██║   ██║     ██║█████╗  ██║        ██║   ███████╗
+// ██╔═══╝ ██╔══██╗██║   ██║██   ██║██╔══╝  ██║        ██║   ╚════██║
+// ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║
+// ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝
+//
+// ADD A DEPLOYED PROJECT — paste a block into PROJECTS before the ];
+// Fields:
+//   id         : 'slug'              — unique, lowercase, no spaces
+//   title      : 'PROJECT NAME'
+//   sub        : 'One-line category' — e.g. 'Booking Platform'
+//   year       : '2026'             — or range '2025–2026'
+//   desc       : 'Two–three honest sentences about what it does and
+//                 what was technically hard about building it.'
+//   tags       : ['Tech','Used']    — real tech only
+//   live       : 'https://…'        — MUST be a working live URL
+//   gh         : 'https://github.com/Manuel500W'
+//   accent     : '#HEX'             — tints the card
+//   screenshots: []                 — add up to 2 real screenshot
+//                                     paths, e.g:
+//                 ['image/nexkart-1.jpg','image/nexkart-2.jpg']
+//                 Leave [] to show the abstract placeholder.
+//
+// Only put a project here if the `live` link actually works.
+// Not-yet-deployed work goes in CONCEPTS below.
+// ════════════════════════════════════════════════════════════════
+const PROJECTS = [
+  {
+    id:'nexkart', title:'NEXKART', sub:'Full-Stack E-Commerce Platform', year:'2024–2025',
+    desc:'A production e-commerce platform with dual-token JWT auth, role-based access control, and Paystack payment integration with webhook signature verification. The admin dashboard covers analytics, Cloudinary image management, and React Query caching.',
+    tags:['React','Node.js','MongoDB','Paystack','Tailwind CSS'],
+    live:'https://nexkart-sigma.vercel.app', gh:'https://github.com/Manuel500W',
+    accent:'#FF5A1F',
+    screenshots:['image/nexkart-1.webp'] // ← add: ['image/nexkart-1.jpg','image/nexkart-2.jpg']
+  },
+  {
+    id:'maway', title:'Maway Logistics', sub:'Shipment Tracking System', year:'2025',
+    desc:'A full-stack logistics platform with an admin dashboard, auto-generated tracking numbers, and real-time shipment status management through a clean RESTful API. Secured with JWT auth, bcrypt password hashing, input validation, and CORS protection.',
+    tags:['Node.js','Express','MongoDB','JWT'],
+    live:'https://maway-logistics-solutions.vercel.app/', gh:'https://github.com/Manuel500W',
+    accent:'#2BB673',
+    screenshots:['image/maway-1.webp', 'image/maway-2.webp'] // ← add: ['image/maway-1.jpg','image/maway-2.jpg']
+  },
+  {
+    id:'yinach', title:'Yinach Collections', sub:'Fashion Retail Landing Page', year:'2025',
+    desc:'A fast, conversion-focused retail storefront built for a fashion brand. Clean product presentation, mobile-first layout, and a smooth shopping experience — from hero to checkout flow.',
+    tags:['React','Tailwind CSS','Next.js'],
+    live:'https://yinachcollections-store.vercel.app', gh:'https://github.com/Manuel500W',
+    accent:'#C9A86A',
+    screenshots:['image/yinach-1.webp', 'image/yinach-2.webp','image/yinach-3.webp'] // ← add: ['image/yinach-1.jpg','image/yinach-2.jpg']
+  }
+];
+
+// ════════════════════════════════════════════════════════════════
+// CONCEPT BUILDS — designs / ambitious ideas, not yet deployed.
+// No live/gh links are shown — nothing here can look like a dead link.
+//   { title, sub, desc, tags, wow:'One punchy capability sentence.' }
+// ════════════════════════════════════════════════════════════════
+const CONCEPTS = [
+  {
+    title:'AI Code Review Bot',
+    sub:'GitHub-Native Developer Tool (Concept)',
+    desc:'A GitHub App that automatically reviews every pull request using the Anthropic API — checking for security anti-patterns, suggesting refactors, and posting inline comments like a senior engineer would. Built to show AI-augmented tooling is the next frontier for dev teams.',
+    tags:['Node.js','GitHub API','Anthropic API','Webhooks'],
+    wow:'Turns every PR into a senior code review, automatically.'
+  },
+  {
+    title:'MultiTenant SaaS Starter',
+    sub:'Production-Ready Boilerplate (Concept)',
+    desc:'A full-stack, multi-tenant SaaS kit with workspace isolation, Stripe subscription billing, role-based access, and a white-label UI — the scaffolding most early-stage products spend months building before they can even start on features.',
+    tags:['Next.js','Prisma','PostgreSQL','Stripe','TypeScript'],
+    wow:'From idea to first paid subscriber in days, not months.'
+  }
+];
+
+const SKILLS = [
+  {cat:'Frontend', items:[
+    {name:'HTML5',      dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',               light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'},
+    {name:'CSS3',       dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',                 light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'},
+    {name:'JavaScript', dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',    light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'},
+    {name:'TypeScript', dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',    light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'},
+    {name:'React',      dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',               light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'},
+    {name:'Next.js',    dark:'https://cdn.simpleicons.org/nextdotjs/EEEEEE',                                              light:'https://cdn.simpleicons.org/nextdotjs/111111'},
+    {name:'Tailwind',   dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',   light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg'},
+    {name:'shadcn/ui',  dark:'https://cdn.simpleicons.org/shadcnui/CCCCCC',                                              light:'https://cdn.simpleicons.org/shadcnui/333333'},
+  ]},
+  {cat:'Backend & Data', items:[
+    {name:'Node.js',    dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',             light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'},
+    {name:'Express.js', dark:'https://cdn.simpleicons.org/express/EEEEEE',                                               light:'https://cdn.simpleicons.org/express/222222'},
+    {name:'MongoDB',    dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',           light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'},
+    {name:'PostgreSQL', dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',    light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'},
+    {name:'Prisma',     dark:'https://cdn.simpleicons.org/prisma/7EAAFF',                                                light:'https://cdn.simpleicons.org/prisma/3B3F99'},
+    {name:'Firebase',   dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',           light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg'},
+    {name:'JWT Auth',   dark:'https://cdn.simpleicons.org/jsonwebtokens/FB015B',                                         light:'https://cdn.simpleicons.org/jsonwebtokens/CC0044'},
+    {name:'REST APIs',  svg:'<svg viewBox="0 0 24 24" fill="none" stroke="#2BB673" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V7a2 2 0 0 1 2-2h2"/><path d="M4 12h4"/><path d="M16 5h2a2 2 0 0 1 2 2v10"/><path d="M16 12h4"/><circle cx="12" cy="12" r="2.2"/></svg>'},
+  ]},
+  {cat:'Tools & DevOps', items:[
+    {name:'Git',    dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',                      light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg'},
+    {name:'GitHub', dark:'https://cdn.simpleicons.org/github/EDEFF2',                                                   light:'https://cdn.simpleicons.org/github/222222'},
+    {name:'Docker', dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',               light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'},
+    {name:'Vercel', dark:'https://cdn.simpleicons.org/vercel/EDEFF2',                                                   light:'https://cdn.simpleicons.org/vercel/222222'},
+    {name:'Render', dark:'https://cdn.simpleicons.org/render/2BB673',                                                   light:'https://cdn.simpleicons.org/render/007755'},
+    {name:'Figma',  dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',                 light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg'},
+    {name:'Linux',  dark:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',                 light:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg'},
+  ]},
+];
+
+const JOURNEY = [
+  {year:'2022', title:'Started B.Sc. Information Technology', tag:'Education',
+   desc:'Enrolled at the National Open University of Nigeria while teaching myself web development independently — building real things from day one, not just following tutorials.', state:'passed'},
+  {year:'Jan 2023', title:'First Freelance Clients', tag:'Self-Employed',
+   desc:'Landed first paid client projects — writing the code, managing the brief, and owning the deployment solo. No team, no safety net.', state:'passed'},
+  {year:'2024', title:'Shipped NEXKART', tag:'E-Commerce',
+   desc:'Built and deployed a production e-commerce platform handling real payments, with verified Paystack webhooks, dual-token JWT auth, RBAC, and an analytics dashboard.', state:'passed'},
+  {year:'2025', title:'Shipped Maway Logistics', tag:'Logistics',
+   desc:'Built a real-time shipment tracking platform with auto-generated tracking numbers, an admin dashboard, and a secured RESTful API — deployed on Vercel + Render.', state:'passed'},
+  {year:'2025', title:'Shipped Yinach Collections', tag:'Retail',
+   desc:'Built a fast, conversion-focused retail storefront for a fashion brand — mobile-first, clean UX, and live on Vercel.', state:'passed'},
+  {year:'2026', title:'Open to the right team', tag:'Now',
+   desc:'Actively looking for a full-time or hybrid role where shipped, secured, production-grade software is the standard — not the exception.', state:'now'},
+];
+
+// ════════════════════════════════════════════════════════════════
+// TESTIMONIALS
+// These MUST be real quotes from real people.
+// If you don't have quotes yet, reach out to your clients and ask —
+// even a single genuine line here multiplies recruiter trust tenfold.
+//
+// Template: { quote, name, role, initials, project }
+// ════════════════════════════════════════════════════════════════
+const TESTIMONIALS = [
+  {
+    quote:"I was excited to see how professional my store looked after the website was completed. Manuel understood what I wanted, created a clean and modern design, and made my business feel more established online. I'm very happy with the result.",
+    name:"Client — Chizoba Gadgets",
+    role:"Electronics Retail Storefront",
+    initials:"CG",
+    project:"Chizoba Gadgets"
+  },
+  {
+    quote:"He understood my vision from the start and created a website that perfectly reflects my brand. The attention to detail was incredible, and I couldn't be happier with the final result.",
+    name:"Client — Yinach Collections",
+    role:"Fashion Retail Storefront",
+    initials:"YC",
+    project:"Yinach Collections"
+  },
+  // Add more: { quote:'…', name:'Full Name', role:'Their Job Title', initials:'AB', project:'…' }
+];
+
+// ─────────────────────────────────────────────────────────────────
+// THEME
+// ─────────────────────────────────────────────────────────────────
+let isDark = true;
+function toggleTheme(){
+  const wrap = document.getElementById('cord-wrap');
+  if(wrap.classList.contains('pulling')) return;
+  wrap.classList.add('pulling');
+  wrap.addEventListener('animationend', ()=>wrap.classList.remove('pulling'), {once:true});
+  // fade all skill images out, swap theme, fade back in
+  const imgs = document.querySelectorAll('.skill-img');
+  imgs.forEach(img=>img.style.opacity='0');
+  setTimeout(()=>{
+    isDark = !isDark;
+    document.documentElement.setAttribute('data-theme', isDark?'dark':'light');
+    imgs.forEach(img=>{
+      if(img.dataset.dark && img.dataset.light){
+        img.src = isDark ? img.dataset.dark : img.dataset.light;
+      }
+      img.style.opacity='1';
+    });
+  }, 200);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// MOBILE NAV
+// ─────────────────────────────────────────────────────────────────
+function openMobNav(){
+  const m = document.getElementById('mob-nav');
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMobNav(){
+  document.getElementById('mob-nav').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ─────────────────────────────────────────────────────────────────
+// NAV SCROLL + ACTIVE LINK
+// ─────────────────────────────────────────────────────────────────
+const navEl = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-l');
+const sections = ['about','security','work','skills','journey','testimonials','contact'];
+window.addEventListener('scroll', ()=>{
+  navEl.classList.toggle('scrolled', window.scrollY > 30);
+  const pos = window.scrollY + 100;
+  sections.forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    const a = document.querySelector(`.nav-l[href="#${id}"]`);
+    if(a) a.classList.toggle('active', pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight);
+  });
+}, {passive:true});
+
+// ─────────────────────────────────────────────────────────────────
+// REVEAL ON SCROLL
+// ─────────────────────────────────────────────────────────────────
+function attachReveal(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -36px 0px'});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
+}
+
+// ─────────────────────────────────────────────────────────────────
+// ABSTRACT MOCKUP (fallback when no screenshots)
+// ─────────────────────────────────────────────────────────────────
+function buildFallbackMockup(accent){
+  const bars=[.62,.38,.78,.50];
+  return `
+    <div class="proj-media-fallback">
+      <div class="mockup-bar-row">
+        <div class="mockup-h" style="width:46px;background:${accent}80"></div>
+        <div class="mockup-h" style="width:28px;background:var(--line)"></div>
+      </div>
+      <div class="mockup-block"></div>
+      <div class="mockup-2col">
+        ${bars.map(b=>`<div class="mockup-cell"><div class="mockup-fill" style="width:${Math.round(b*100)}%;background:${accent}90"></div></div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// CAROUSEL
+// ─────────────────────────────────────────────────────────────────
+function buildMedia(p){
+  const hasShots = p.screenshots && p.screenshots.length > 0;
+  let inner = '';
+  if(hasShots){
+    inner = p.screenshots.map((src,i)=>
+      `<img src="${src}" alt="${p.title} screenshot ${i+1}" class="${i===0?'active':'inactive'}" loading="lazy"/>`
+    ).join('');
+    if(p.screenshots.length > 1){
+      inner += `
+        <div class="carousel-ctrl">
+          <button class="carousel-btn" onclick="prevShot('${p.id}')" aria-label="Previous screenshot">‹</button>
+          ${p.screenshots.map((_,i)=>`<span class="carousel-dot${i===0?' on':''}" onclick="goShot('${p.id}',${i})"></span>`).join('')}
+          <button class="carousel-btn" onclick="nextShot('${p.id}')" aria-label="Next screenshot">›</button>
+        </div>`;
+    }
+  } else {
+    inner = buildFallbackMockup(p.accent);
+  }
+  return `
+    <div class="proj-media" id="media-${p.id}">
+      <div class="status-chip live"><span class="live-dot"></span>Live</div>
+      ${inner}
+    </div>`;
+}
+
+const carouselState = {};
+function goShot(id, idx){
+  const wrap = document.getElementById('media-'+id);
+  if(!wrap) return;
+  const imgs = wrap.querySelectorAll('img');
+  const dots = wrap.querySelectorAll('.carousel-dot');
+  if(!imgs.length) return;
+  imgs.forEach((img,i)=>{ img.classList.toggle('active',i===idx); img.classList.toggle('inactive',i!==idx); });
+  dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+  carouselState[id] = idx;
+}
+function nextShot(id){
+  const wrap = document.getElementById('media-'+id);
+  const imgs = wrap ? wrap.querySelectorAll('img') : [];
+  const cur = carouselState[id]||0;
+  goShot(id,(cur+1)%imgs.length);
+}
+function prevShot(id){
+  const wrap = document.getElementById('media-'+id);
+  const imgs = wrap ? wrap.querySelectorAll('img') : [];
+  const cur = carouselState[id]||0;
+  goShot(id,(cur-1+imgs.length)%imgs.length);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// RENDER PROJECTS
+// ─────────────────────────────────────────────────────────────────
+document.getElementById('proj-grid').innerHTML = PROJECTS.map(p=>`
+  <div class="card" style="overflow:hidden">
+    ${buildMedia(p)}
+    <div style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <h3 class="disp" style="font-size:17px;font-weight:600;color:var(--paper)">${p.title}</h3>
+        <span class="mono" style="font-size:10px;color:var(--slate-dim)">${p.year}</span>
+      </div>
+      <p style="font-size:12.5px;color:var(--signal);font-weight:600;margin-bottom:9px">${p.sub}</p>
+      <p style="font-size:13px;color:var(--slate);line-height:1.65;margin-bottom:14px">${p.desc}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <a href="${p.live}" target="_blank" rel="noopener"><button class="btn btn-fill" style="padding:9px 15px;font-size:12.5px;min-height:38px">View Live →</button></a>
+        <a href="${p.gh}" target="_blank" rel="noopener"><button class="btn btn-line" style="padding:9px 15px;font-size:12.5px;min-height:38px">GitHub</button></a>
+      </div>
+    </div>
+  </div>`).join('');
+
+// ─────────────────────────────────────────────────────────────────
+// RENDER CONCEPTS
+// ─────────────────────────────────────────────────────────────────
+document.getElementById('concept-grid').innerHTML = CONCEPTS.map(c=>`
+  <div class="concept-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px">
+      <div>
+        <h4 class="disp" style="font-size:15px;font-weight:600;color:var(--paper)">${c.title}</h4>
+        <p style="font-size:12px;color:var(--concept);font-weight:600;margin-top:2px">${c.sub}</p>
+      </div>
+      <span class="pill concept" style="flex-shrink:0;padding:3px 9px;font-size:9.5px">Concept</span>
+    </div>
+    <p style="font-size:12.5px;color:var(--slate-dim);line-height:1.65;margin-bottom:12px">${c.desc}</p>
+    ${c.wow?`<div style="font-size:12px;font-weight:600;color:var(--concept);margin-bottom:12px;padding:8px 12px;border-radius:6px;background:var(--concept-dim);border:1px solid var(--concept-bd)">"${c.wow}"</div>`:''}
+    <div style="display:flex;flex-wrap:wrap;gap:5px">${c.tags.map(t=>`<span class="tag" style="opacity:.7">${t}</span>`).join('')}</div>
+  </div>`).join('');
+
+// ─────────────────────────────────────────────────────────────────
+// SKILLS
+// ─────────────────────────────────────────────────────────────────
+let activeCat = 0;
+function renderSkills(){
+  const tabs = document.getElementById('skill-tabs');
+  const grid = document.getElementById('skill-grid');
+  tabs.innerHTML = SKILLS.map((c,i)=>
+    `<button class="skill-tab${i===activeCat?' active':''}" onclick="setCat(${i})">${c.cat}</button>`
+  ).join('');
+  grid.innerHTML = SKILLS[activeCat].items.map((s,i)=>`
+    <div class="skill-chip rv d${Math.min(i+1,6)}">
+      ${s.svg
+        ? `<span style="width:26px;height:26px;display:flex;align-items:center;justify-content:center">${s.svg}</span>`
+        : `<img class="skill-img" data-dark="${s.dark}" data-light="${s.light}" src="${isDark?s.dark:s.light}" alt="${s.name}" style="width:26px;height:26px;object-fit:contain" loading="lazy" onerror="this.style.opacity='0'"/>`
+      }
+      <span style="font-size:10.5px;font-weight:500;color:var(--slate)">${s.name}</span>
+    </div>`).join('');
+  attachReveal();
+}
+function setCat(i){ activeCat=i; renderSkills(); }
+renderSkills();
+
+// ─────────────────────────────────────────────────────────────────
+// JOURNEY
+// ─────────────────────────────────────────────────────────────────
+const journeyRoot = document.getElementById('journey-root');
+journeyRoot.insertAdjacentHTML('beforeend', JOURNEY.map((t,i)=>`
+  <div class="checkpoint ${t.state==='now'?'':'passed'} rv d${Math.min(i+1,6)}">
+    <div class="cp-dot${t.state==='now'?' now':''}"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
+      <span class="mono" style="font-size:10.5px;color:var(--signal)">${t.year}</span>
+      <span class="pill ${t.state==='now'?'verified':'neutral'}" style="padding:2px 9px;font-size:9.5px">${t.tag}</span>
+    </div>
+    <h4 style="font-size:15.5px;font-weight:600;margin-bottom:4px;color:var(--paper)">${t.title}</h4>
+    <p style="font-size:13px;color:var(--slate);line-height:1.6;max-width:520px">${t.desc}</p>
+  </div>`).join(''));
+
+// Route-fill progress
+const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+const routeFill = document.getElementById('route-fill');
+function updateRoute(){
+  if(reduceMotion||!routeFill) return;
+  const sec = document.getElementById('journey');
+  const rect = sec.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const total = rect.height + vh;
+  const passed = Math.min(Math.max(vh - rect.top,0),total);
+  routeFill.style.height = (Math.min(passed/total,1)*100)+'%';
+}
+window.addEventListener('scroll', updateRoute, {passive:true});
+updateRoute();
+
+// ─────────────────────────────────────────────────────────────────
+// TESTIMONIALS
+// ─────────────────────────────────────────────────────────────────
+document.getElementById('testi-grid').innerHTML = TESTIMONIALS.map((t,i)=>`
+  <div class="testi-card rv d${Math.min(i+1,4)}">
+    <p class="testi-quote">${t.quote}</p>
+    <div class="testi-author">
+      <div class="testi-av">${t.initials}</div>
+      <div>
+        <div class="testi-name">${t.name}</div>
+        <div class="testi-role">${t.role}</div>
+      </div>
+    </div>
+  </div>`).join('');
+
+// ─────────────────────────────────────────────────────────────────
+// CONTACT FORM — sends directly to onyekaemma500@gmail.com via Web3Forms
+// ─────────────────────────────────────────────────────────────────
+document.getElementById('contact-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const name    = document.getElementById('f-name');
+  const email   = document.getElementById('f-email');
+  const msg     = document.getElementById('f-msg');
+  const btn     = document.getElementById('send-btn');
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+
+  // Validate
+  document.getElementById('f-name-field').classList.toggle('invalid', !name.value.trim());
+  document.getElementById('f-email-field').classList.toggle('invalid', !emailOk);
+  document.getElementById('f-msg-field').classList.toggle('invalid', !msg.value.trim());
+  if(!name.value.trim() || !emailOk || !msg.value.trim()) return;
+
+  // Send
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'c3981e30-57e4-49e3-8c93-15910ddb359e',
+        subject: 'Portfolio Contact — ' + name.value.trim(),
+        from_name: name.value.trim(),
+        email: email.value.trim(),
+        message: msg.value.trim(),
+        botcheck: ''
+      })
+    });
+    const data = await res.json();
+    if(data.success){
+      btn.textContent = '✓ Message sent!';
+      btn.style.background = 'var(--verified)';
+      this.reset();
+      setTimeout(()=>{ btn.textContent='Send Message →'; btn.style.background=''; btn.disabled=false; }, 5000);
+    } else {
+      throw new Error('Send failed');
+    }
+  } catch(err){
+    btn.textContent = 'Failed — try emailing directly';
+    btn.style.background = '#c0392b';
+    btn.disabled = false;
+    setTimeout(()=>{ btn.textContent='Send Message →'; btn.style.background=''; }, 5000);
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────
+// Sync hero stat and code block with PROJECTS.length
+document.getElementById('stat-live-apps').textContent = 21;
+const codeCount = document.getElementById('code-app-count');
+if(codeCount) codeCount.textContent = 21;
+
+attachReveal();
+
+// Hero grid: responsive collapse via JS (handles all screen sizes)
+function heroResponsive(){
+  const grid = document.getElementById('hero-grid');
+  if(!grid) return;
+  const isMob = window.innerWidth <= 760;
+  grid.style.gridTemplateColumns = isMob ? '1fr' : '1.15fr .85fr';
+  grid.style.gap = isMob ? '0' : '56px';
+}
+heroResponsive();
+window.addEventListener('resize', heroResponsive, {passive:true});
+</script>
+</body>
+</html>
